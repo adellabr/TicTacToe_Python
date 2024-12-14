@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tic-Tac-Toe</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            justify-content: center; 
+            align-items: center; 
+            height: 100vh;
+            margin: 0;
+        }
+
+        h1 {
+            text-align: center; 
+            margin-bottom: 30px; 
+        }
+
+        table {
+            border-collapse: collapse;
+        }
+
+        td {
+            width: 100px; 
+            height: 100px; 
+            text-align: center; 
+            font-size: 36px; 
+            border: 2px solid #333; 
+            vertical-align: middle;
+            background-color: #6cacb0;
+        }
+
+        button {
+            background: none;
+            border: none;
+            font-size: 36px;
+            cursor: pointer;
+            width: 100%; 
+            height: 100%; 
+            padding: 0;
+        }
+
+        .start-button, .restart-button {
+            background: #6cacb0;
+            border: 2px solid #333; 
+            font-size: 24px;
+            padding: 10px 20px;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Tic-Tac-Toe</h1>
+    {% if board %}
+    <form action="{{ url_for('main.play_game', game_id=game_id) }}" method="post">
+        <table>
+            {% for row_index in range(3) %}
+                <tr>
+                    {% for col_index in range(3) %}
+                        <td>
+                            <button type="submit" name="cell" value="{{ row_index * 3 + col_index }}">
+                                {% if board[row_index][col_index] == 'X' %}
+                                    X
+                                {% elif board[row_index][col_index] == 'O' %}
+                                    O
+                                {% else %}
+                                    &nbsp;
+                                {% endif %}
+                            </button>
+                        </td>
+                    {% endfor %}
+                </tr>
+            {% endfor %}
+        </table>
+    </form>
+    {% if winner %}
+        <h2>Winner: {{ winner }}!</h2>
+    {% elif is_finish %}
+        <h2>Draw!</h2>
+    {% endif %}
+    <form action="{{ url_for('main.start') }}" method="post">
+        <button type="submit" class="restart-button">Restart Game</button>
+    </form>
+    {% else %}
+    <form action="{{ url_for('main.start') }}" method="post">
+        <button type="submit" class="start-button">Start Game</button>
+    </form>
+    {% endif %}
+</body>
+</html>

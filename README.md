@@ -35,7 +35,7 @@ Web application in Python using Flask
 - A controller using Flask is implemented, having a method POST /game/{UUID of the current game}, which sends the current game with the updated game board from the user and receives in response the current game with the updated game board from the computer.
 - Support for multiple games simultaneously is required.
 
-## Task 5: Implementation of DI Layer
+## Implementation of DI Layer
 - A Container class is implemented, which describes the dependency graph.
 - It contains:
    - A storage class as a singleton;
